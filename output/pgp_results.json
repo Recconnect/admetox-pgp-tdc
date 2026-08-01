@@ -1,0 +1,12 @@
+{
+  "endpoint": "Pgp_Broccatelli",
+  "sota": 0.938,
+  "seeds": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+  "protocol": "full-data MapLight GBM + 5-fold GINE, 0.80 GNN blend",
+  "gnn_ensemble_auroc": 0.9362170087976539,
+  "gbm_ensemble_auroc": 0.9286856838176487,
+  "submission_ensemble_auroc": 0.9391495601173021,
+  "gap_to_sota": 0.001149560117302162,
+  "tdc_evaluate_many": [0.933, 0.008],
+  "recorded_at": "2026-08-01"
+}

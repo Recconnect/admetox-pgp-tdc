@@ -1,0 +1,16 @@
+# Python 3.10+; install PyTDC separately with --no-deps (see README).
+numpy>=1.24.0
+scikit-learn>=1.4.0
+rdkit>=2024.03.0
+catboost>=1.2.0
+lightgbm>=4.0.0
+xgboost>=2.0.0
+torch>=2.2.0
+torch-geometric>=2.5.0
+requests>=2.31.0
+tqdm>=4.65.0
+fuzzywuzzy>=0.18.0
+setuptools<73
+huggingface_hub>=0.26.0
+datasets>=2.19.0
+evaluate>=0.4.0

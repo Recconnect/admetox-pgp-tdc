@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# TDC cache and generated predictions are reproducible, not source artifacts.
+data/*
+!data/.gitkeep
+output/*.npz
+output/*.pt
+output/*.pkl
