@@ -2,16 +2,22 @@
 
 Reproducible P-glycoprotein substrate prediction for the [TDC ADMET Leaderboard](https://tdcommons.ai/benchmark/admet_group/06pgp/), using the `Pgp_Broccatelli` official split.
 
-## Result
+## Reproducibility Status
+
+The initial experiment produced an averaged submission-vector AUROC of **0.9391**, above the published TDC SOTA of 0.9380. A subsequent independent full retraining from a public clean clone produced **0.9366** on the same official split and configuration.
+
+The result is therefore a **candidate record, not a submission-ready SOTA claim**. This repository keeps both values visible until repeated independent full runs establish a stable result above 0.9380.
+
+## Results
 
 | Metric | Value |
 |---|---:|
-| Averaged submission-vector AUROC | **0.9391** |
+| Initial experiment, averaged submission-vector AUROC | 0.9391 |
+| Independent clean-clone full retraining | 0.9366 |
 | TDC SOTA (MapLight+GNN) | 0.9380 |
-| **Gap to SOTA** | **+0.0011** |
-| `evaluate_many` seed-level result | 0.9330 +/- 0.0080 |
+| Independent `evaluate_many` seed-level result | 0.9320 +/- 0.0060 |
 
-The record is the AUROC of the **single averaged submission vector**. The TDC `evaluate_many` value separately reports the mean and standard deviation of 15 seed-level blends; it is not the score of the averaged vector.
+The averaged submission-vector AUROC and TDC `evaluate_many` are distinct: `evaluate_many` summarizes seed-level blends, whereas the former scores one averaged prediction vector.
 
 ## Method
 
@@ -25,9 +31,9 @@ The blend weight was selected from out-of-fold predictions before final test eva
 
 | Branch | Training protocol | Test AUROC |
 |---|---|---:|
-| GNN | 6-layer GINE, hidden 256, dropout 0.08, 5-fold CV x 15 seeds | 0.9362 |
+| GNN, independent clean run | 6-layer GINE, hidden 256, dropout 0.08, 5-fold CV x 15 seeds | 0.9328 |
 | GBM | 5 MapLight models x 15 seeds; every model trains on all `train_val` rows | 0.9287 |
-| Final blend | 80% GNN, 20% GBM | **0.9391** |
+| Final blend, independent clean run | 80% GNN, 20% GBM | 0.9366 |
 
 ### GNN
 
@@ -79,7 +85,7 @@ python run_pgp.py --quick
 | `output/pgp_results.json` | Metrics, protocol, seeds, TDC evaluation result |
 | `output/pgp_submission.npz` | Averaged submission prediction vector and official test labels for local verification |
 
-`pgp_submission.npz` is generated and intentionally ignored by Git. The committed JSON records the final measured result.
+`pgp_submission.npz` is generated and intentionally ignored by Git. The committed JSON records the independently reproduced result.
 
 ## Reproducibility
 
@@ -98,8 +104,8 @@ GPU-enabled PyTorch is required for practical GNN training. A CUDA PyTorch build
 | `pip install PyTDC` fails on Python 3.12 | Run `pip install PyTDC --no-deps` after `pip install -r requirements.txt`. |
 | TDC download fails | Check network access, remove the local `data/` cache, and rerun. |
 | `torch_geometric` cannot import | Install a PyTorch build appropriate for ROCm or CUDA first, then reinstall `torch-geometric`. |
-| Different AUROC | Use the exact 15 seeds and `--w-gnn 0.80`; small differences can arise from RDKit, PyTorch, or tree-library versions. |
-| `evaluate_many` is lower than 0.9391 | Expected: it summarizes individual seed blends, whereas 0.9391 is the averaged submission-vector AUROC. |
+| Different AUROC | Use the exact 15 seeds and `--w-gnn 0.80`; current independent reproduction is 0.9366, so do not claim SOTA until repeated runs are stably above 0.9380. |
+| `evaluate_many` is lower than averaged AUROC | Expected: it summarizes individual seed blends, not the averaged submission vector. |
 
 ## References
 
