@@ -10,3 +10,5 @@ data/*
 output/*.npz
 output/*.pt
 output/*.pkl
+output/cache/
+output/pgp_smoke_results.json
