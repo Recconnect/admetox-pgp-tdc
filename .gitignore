@@ -4,9 +4,15 @@ __pycache__/
 venv/
 .env
 
-# TDC cache and generated predictions are reproducible, not source artifacts.
+# TDC cache: only the endpoint's official data is committed so fresh clones are self-contained.
 data/*
-!data/.gitkeep
+!data/admet_group/
+data/admet_group/*
+!data/admet_group/pgp_broccatelli/
+data/admet_group/pgp_broccatelli/*
+!data/admet_group/pgp_broccatelli/test.csv
+!data/admet_group/pgp_broccatelli/train_val.csv
+.DS_Store
 output/*.npz
 output/*.pt
 output/*.pkl
